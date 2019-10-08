@@ -1,0 +1,48 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  base_url: http://********.duckdns.org:8123
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Text to speech
+tts:
+  - platform: google_translate
+  
+discovery:
+media_extractor:
+sun:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+homeassistant:
+  latitude: 33.083425
+  longitude: -96.82439169999999
+  elevation: 222
+  unit_system: imperial
+  time_zone: America/Chicago
+
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_iso'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+  - platform: islamic_prayer_times
+    calculation_method: isna
+    sensors:
+      - fajr
+      - sunrise
+      - dhuhr
+      - asr
+      - maghrib
+      - isha
+      - midnight
