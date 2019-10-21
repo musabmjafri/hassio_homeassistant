@@ -43,8 +43,26 @@ addr-gen-mode=stable-privacy
 method=auto
 ```
 
-- Place SD card in Raspberry-Pi and boot up (takes couple of minutes).
+- Place SD card in Raspberry Pi and boot up (takes couple of minutes).
 
 - Access Home Assistant by typing [http://hassio:8123](http://hassio:8123) in the browser.
   - If that doesn't work then wait some more or check local IP for hassio in router page and add :8123 to access Home Assistant.
   - Hassio IP can be fixed in router settings and a port forwarding rule can also be associated to port 8123 with that IP if required.
+
+## Recommended Addons Setup
+
+### Configurator
+
+- Click sidebar option "Hass.io".
+
+- Click "ADD-ON STORE".
+
+- Search "Configurator".
+
+- Click "Configurator" and click "Install".
+
+- Once installation completes click "Start".
+
+- For easier configurator access, toggle "Show in sidebar" to on.
+
+- All automations and configurations in the project go in the appropriate YAML file in the configurator.
