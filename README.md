@@ -49,6 +49,10 @@ method=auto
   - If that doesn't work then wait some more or check local IP for hassio in router page and add :8123 to access Home Assistant.
   - Hassio IP can be fixed in router settings and a port forwarding rule can also be associated to port 8123 with that IP if required.
 
+- First time setup information will need to be obtained:
+  - Longitude, Latitude, and Elevation can be obtained from [here](https://www.maps.ie/coordinates.html) against location.
+  - Timezone can be confirmed from [here](http://www.timezoneconverter.com/cgi-bin/findzone.tzc) against location.
+
 ## Recommended Add-ons Setup
 
 ### Configurator - Automations and Configurations YAML Editor
