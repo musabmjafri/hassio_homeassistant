@@ -11,7 +11,7 @@
 
 - Download [Home Assistant HassOS](https://www.home-assistant.io/hassio/installation/) image.
 
-- Download [Blena Etcher](https://www.balena.io/etcher/) and run it to flash the HassOS image on SD card.
+- Download [Balena Etcher](https://www.balena.io/etcher/) and run it to flash the HassOS image on SD card.
 
 - Setup Wifi Connection
   - Open "hassos-boot" drive and make a new folder "CONFIG".
