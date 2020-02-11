@@ -1,10 +1,9 @@
-- id: '1517693010922'
+- id: '1'
   alias: Fajr Adhan
   trigger:
   - platform: template
-    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M,
-      %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_fajr"),
-      "%Y-%m-%dT%H:%M:%S")) }}'
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_fajr"), "%Y-%m-%dT%H:%M:%S")) }}'
   condition: []
   action:
   - alias: ''
@@ -17,28 +16,29 @@
   - data:
       entity_id:
       - media_player.******
-      volume_level: '0.5'
+      volume_level: '0.4'
+    service: media_player.volume_set
+  - data:
+      entity_id:
+      - media_player.******
+      volume_level: '0.4'
     service: media_player.volume_set
 
-- id: '1517693010923'
+- id: '2'
   alias: Adhan
   trigger:
   - platform: template
-    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M,
-      %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_dhuhr"),
-      "%Y-%m-%dT%H:%M:%S")) }}'
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_dhuhr"), "%Y-%m-%dT%H:%M:%S")) }}'
   - platform: template
-    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M,
-      %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_asr"),
-      "%Y-%m-%dT%H:%M:%S")) }}'
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_asr"), "%Y-%m-%dT%H:%M:%S")) + (60 * 60) }}'
   - platform: template
-    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M,
-      %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_maghrib"),
-      "%Y-%m-%dT%H:%M:%S")) }}'
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_maghrib"), "%Y-%m-%dT%H:%M:%S")) }}'
   - platform: template
-    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M,
-      %Y-%m-%d")) == as_timestamp(strptime(states("sensor.islamic_prayer_time_isha"),
-      "%Y-%m-%dT%H:%M:%S")) }}'
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_isha"), "%Y-%m-%dT%H:%M:%S")) }}'
   condition: []
   action:
   - alias: ''
@@ -51,5 +51,18 @@
   - data:
       entity_id:
       - media_player.******
-      volume_level: '0.5'
+      volume_level: '0.4'
     service: media_player.volume_set
+    
+- id: '3'
+  alias: IFTTT Webhook
+  trigger:
+  - event_data:
+      action: call_service
+    event_type: ifttt_webhook_received
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      entity_id: '{{ trigger.event.data.entity_id }}'
+    service_template: '{{ trigger.event.data.service }}'
