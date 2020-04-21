@@ -1,6 +1,6 @@
 # Home Assistant Automations and Configurations
 
-## Raspberry Pi Setup
+## Raspberry Pi Setup with Hass OS
 
 ### Requirements
 
@@ -53,6 +53,138 @@ method=auto
   - Longitude, Latitude, and Elevation can be obtained from [here](https://www.maps.ie/coordinates.html) against location.
   - Timezone can be confirmed from [here](http://www.timezoneconverter.com/cgi-bin/findzone.tzc) against location.
 
+## Raspberry Pi Setup on Raspbian
+
+### Requirements
+
+- Raspberry Pi (2/3/4)
+- SD card (16/32GB)
+- Raspbian installation
+
+### Installation Prerequisites
+
+- Open Terminal and check for latest Raspbian update:
+
+```
+$ sudo apt-get update
+```
+
+- Install the dependencies that are needed for homeassistant:
+
+```
+$ sudo apt-get install python3 python3-venv python3-pip
+```
+
+- Setup a Home Assistant Environment
+  - Create a user:
+  ```
+  $ sudo useradd -rm homeassistant
+  ```
+  - Create a directory:
+  ```
+  $ cd /srv
+  $ sudo mkdir homeassistant
+  ```
+  - Change owner of directory to user:
+  ```
+  $ sudo chown homeassistant:homeassistant homeassistant/
+  ```
+  - Run bash as homeassistant user:
+  ```
+  $ sudo su -s /bin/bash homeassistant
+  ```
+  - Switch to homeassistant directory:
+  ```
+  $ cd srv/homeassistant
+  ```
+  - Setup a Python virtual environment:
+  ```
+  $ python3 -m venv homeassistant_venv
+  ```
+  - Activate to setup environment variables for the virtual environment:
+  ```
+  $ source /srv/homeassistant/homeassistant_venv/bin/activate
+  ```
+  - Exit the environment:
+  ```
+  $ exit
+  ```
+
+- For ease of switching to the virtual environment, which is where all testing for configuring the home assistant is run, put the source command in .bashrc of homeassistant user to make it easier.
+  - Open bashrc for homeassistant user:
+  ```
+  $ cd ~
+  $ vi .bashrc
+  ```
+  - Copy and paste the following at the bottom of the file:
+  ```
+  $ source /srv/homeassistant/homeassistant_venv/bin/activate
+  ```
+  - Save the file and to test it type the following:
+  ```
+  $ exit
+  $ sudo su -s /bin/bash homeassistant
+  ```
+  - The following should be observed and be exited after:
+  ```
+  (homeassistant_venv) homeassistant@raspberrypi:/home/pi $
+  ```
+
+### Installation
+
+- Inside the homeassistant virtual environment execute the following commands to install Home Assistant:
+
+```
+(homeassistant_venv) homeassistant@raspberrypi:/home/pi $ cd /srv/homeassistant
+(homeassistant_venv) homeassistant@raspberrypi:/srv/homeassistant/ $ pip3 install homeassistant
+```
+
+- Manually run the program from the virtual environment with the following command however, it can be configured to start when the pi starts up through the systemctl:
+
+```
+(homeassistant_venv) homeassistant@raspberrypi:/home/pi $ hass
+```
+
+- Set up auto start
+  - Begin with creating the service file for this as starting as the pi user:
+  ```
+  $ sudo su root
+  $ cd /etc/systemd/system/
+  $ vi home-assistant@pi.service
+  ```
+  - Cut and paste the following:
+  ```
+  [Unit]
+  Description=Home Assistant After=network.target
+  
+  [Service] Type=simple User=homeassistant #make sure the virtualenv python binary is used Environment=VIRTUAL_ENV="/srv/homeassistant/homeassistant_venv" Environment=PATH="$VIRTUAL_ENV/bin:$PATH"
+  
+  ExecStart=/srv/homeassistant/homeassistant_venv/bin/hass -c "/home/homeassistant/.homeassistant"
+  
+  [Install] WantedBy=multi-user.target
+  ```
+  - Save and exit out of editing the file.
+  - Exit root to return to the pi user.
+  - Restart the systemctl and read the file with the following commands:
+  ```
+  $ sudo systemctl --system daemon-reload
+  $ sudo systemctl enable home-assistant@pi
+  
+  $ sudo systemctl start home-assistant@pi
+  ```
+  - By now the service should be able to start with the following command:
+  ```
+  $ sudo systemctl start home-assistant@pi
+  ```
+  - The log can be viewed to check if it is starting properly with the command:
+  ```
+  $ sudo systemctl status home-assistant@pi -l
+  ```
+  - Or view a scrolling log you can issue the following command:
+  ```
+  $ sudo journalctl -f -u home-assistant@pi
+  ```
+  
 ## Recommended Add-ons Setup
 
 ### Configurator - Automations and Configurations YAML Editor
