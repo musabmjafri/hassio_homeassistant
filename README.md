@@ -53,7 +53,7 @@ method=auto
   - Longitude, Latitude, and Elevation can be obtained from [here](https://www.maps.ie/coordinates.html) against location.
   - Timezone can be confirmed from [here](http://www.timezoneconverter.com/cgi-bin/findzone.tzc) against location.
 
-## Raspberry Pi Setup on Raspbian
+## Raspberry Pi Setup on Raspbian (without Hassio Supervisor)
 
 ### Requirements
 
