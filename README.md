@@ -63,10 +63,11 @@ method=auto
 
 ### Installation Prerequisites
 
-- Open Terminal and check for latest Raspbian update:
+- Open Terminal and check for latest updates on Raspbian and its packages:
 
 ```
 $ sudo apt-get update
+$ sudo apt-get full-upgrade
 ```
 
 - Install the dependencies that are needed for homeassistant:
