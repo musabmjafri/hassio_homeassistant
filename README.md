@@ -115,15 +115,17 @@ $ sudo apt-get install python3 python3-venv python3-pip
   - Open bashrc for homeassistant user:
   ```
   $ cd ~
-  $ vi .bashrc
+  $ sudo vi .bashrc
   ```
-  - Copy and paste the following at the bottom of the file:
+  - Scroll to the bottom of the file, and press I to enter line edit mode
+  - Copy the following and paste at the bottom of the file:
   ```
   $ source /srv/homeassistant/homeassistant_venv/bin/activate
   ```
-  - Save the file and to test it type the following:
+  - When pasted, press ESC to exit edit mode.
+  - Press :wq! to save the file.
+  - To test the auto load of the environment type the following:
   ```
-  $ exit
   $ sudo su -s /bin/bash homeassistant
   ```
   - The following should be observed and be exited after:
