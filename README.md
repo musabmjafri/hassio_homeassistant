@@ -158,13 +158,17 @@ $ sudo apt-get install python3 python3-venv python3-pip
   - Cut and paste the following:
   ```
   [Unit]
-  Description=Home Assistant After=network.target
+  Description=Home Assistant
+  After=network.target
   
-  [Service] Type=simple User=homeassistant #make sure the virtualenv python binary is used Environment=VIRTUAL_ENV="/srv/homeassistant/homeassistant_venv" Environment=PATH="$VIRTUAL_ENV/bin:$PATH"
-  
+  [Service]
+  Type=simple
+  User=homeassistant
+  ExecStartPre=source /srv/homeassistant/homeassistant_venv/bin/activate
   ExecStart=/srv/homeassistant/homeassistant_venv/bin/hass -c "/home/homeassistant/.homeassistant"
   
-  [Install] WantedBy=multi-user.target
+  [Install]
+  WantedBy=multi-user.target
   ```
   - Save and exit out of editing the file.
   - Exit root to return to the pi user.
