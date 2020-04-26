@@ -194,7 +194,7 @@ $ sudo apt-get install python3 python3-venv python3-pip
   
 ## Recommended Add-ons Setup
 
-### Configurator - Automations and Configurations YAML Editor
+### Configurator (File editor) - Automations and Configurations YAML Editor
 
 - Click sidebar option "Hass.io".
 
