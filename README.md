@@ -194,25 +194,25 @@ $ sudo apt-get install python3 python3-venv python3-pip
   
 ## Recommended Add-ons Setup
 
-### Configurator (File editor) - Automations and Configurations YAML Editor
+### File Editor - Automations and Configurations YAML Editor
 
-- Click sidebar option "Hass.io".
+- Click sidebar option "Supervisor".
 
 - Click "ADD-ON STORE".
 
-- Search "Configurator".
+- Search "File Editor".
 
-- Click "Configurator" and click "Install".
+- Click "File Editor" and click "Install".
 
 - Once installation completes click "Start".
 
-- For easier configurator access, toggle "Show in sidebar" to on.
+- For easier File Editor access, toggle "Show in sidebar" to on.
 
-- All automations and configurations in the project go in the appropriate YAML file in the configurator.
+- All automations and configurations in the project go in the appropriate YAML file in the File Editor.
 
-### Duck DNS - Remote Access
+### Duck DNS - Interface Remote Access
 
-- Click sidebar option "Hass.io".
+- Click sidebar option "Supervisor".
 
 - Click "ADD-ON STORE".
 
@@ -230,3 +230,22 @@ $ sudo apt-get install python3 python3-venv python3-pip
   - Copy the DuckDNS token (listed at the top of the page where account details are displayed) from duckdns.org and paste into the token option.
   - Update the domains option with the full domain name you registered. E.g., my-domain.duckdns.org.
   - Optionally set "accept_terms": true for a SSL certificate to be issued through Lets Encrypt.
+
+### Samba Share - File System Network Access
+
+- Click sidebar option "Supervisor".
+
+- Click "ADD-ON STORE".
+
+- Search "Samba Share".
+
+- Click "Samba Share" and click "Install".
+
+- In theSamba Share add-on configuration
+  - Set username as "homeassistant".
+  - Set a password that will be used to access file system.
+  
+- On a Windows Machine, open "This PC" and click "Add a network location"
+  - Set network address as "\\homeassisstant\config" to map the config directory for easy access to the YAML files.
+  - Set network address as "\\homeassisstant\backup" to map the backup directory to copy or paste backup files.
+  
