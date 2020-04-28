@@ -6,55 +6,118 @@
         == as_timestamp(strptime(states("sensor.islamic_prayer_time_fajr"), "%Y-%m-%dT%H:%M:%S")) }}'
   condition: []
   action:
-  - alias: ''
+  - service: media_extractor.play_media
     data:
       entity_id:
-      - media_player.******
-      media_content_id: https://www.youtube.com/watch?v=Zn4cynlzt4A
+      - media_player.*****
+      media_content_id: https://*****.duckdns.org:8123/local/FajrAdhan.mp3
       media_content_type: audio/mp3
-    service: media_extractor.play_media
-  - data:
+  - service: media_player.volume_set
+    data:
       entity_id:
-      - media_player.******
+      - media_player.*****
       volume_level: '0.4'
-    service: media_player.volume_set
-  - data:
-      entity_id:
-      - media_player.******
-      volume_level: '0.4'
-    service: media_player.volume_set
 
 - id: '2'
-  alias: Adhan
+  alias: Dhuhr Adhan
   trigger:
   - platform: template
     value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
         == as_timestamp(strptime(states("sensor.islamic_prayer_time_dhuhr"), "%Y-%m-%dT%H:%M:%S")) }}'
+  condition: []
+  action:
+  - service: media_extractor.play_media
+    data:
+      entity_id:
+      - media_player.*****
+      media_content_id: https://*****.duckdns.org:8123/local/Adhan.mp3
+      media_content_type: audio/mp3
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.*****
+      volume_level: '0.4'
+  - service: media_player.volume_mute
+    data:
+      entity_id:
+      - media_player.tv
+      is_volume_muted: true
+    
+- id: '3'
+  alias: Asr Adhan
+  trigger:
   - platform: template
     value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
         == as_timestamp(strptime(states("sensor.islamic_prayer_time_asr"), "%Y-%m-%dT%H:%M:%S")) + (60 * 60) }}'
+  action:
+  - service: media_extractor.play_media
+    data:
+      entity_id:
+      - media_player.*****
+      media_content_id: https://*****.duckdns.org:8123/local/Adhan.mp3
+      media_content_type: audio/mp3
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.*****
+      volume_level: '0.4'
+  - service: media_player.volume_mute
+    data:
+      entity_id:
+      - media_player.tv
+      is_volume_muted: true
+    
+- id: '4'
+  alias: Maghrib Adhan
+  trigger:
   - platform: template
     value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
-        == as_timestamp(strptime(states("sensor.islamic_prayer_time_maghrib"), "%Y-%m-%dT%H:%M:%S")) }}'
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_maghrib"), "%Y-%m-%dT%H:%M:%S")) + (60 * 2) }}'
+  condition: []
+  action:
+  - service: media_extractor.play_media
+    data:
+      entity_id:
+      - media_player.*****
+      media_content_id: https://*****.duckdns.org:8123/local/Adhan.mp3
+      media_content_type: audio/mp3
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.*****
+      volume_level: '0.4'
+  - service: media_player.volume_mute
+    data:
+      entity_id:
+      - media_player.tv
+      is_volume_muted: true
+    
+- id: '5'
+  alias: Isha Adhan
+  trigger:
   - platform: template
     value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
         == as_timestamp(strptime(states("sensor.islamic_prayer_time_isha"), "%Y-%m-%dT%H:%M:%S")) }}'
   condition: []
   action:
-  - alias: ''
+  - service: media_extractor.play_media
     data:
       entity_id:
-      - media_player.******
-      media_content_id: https://www.youtube.com/watch?v=EZgPnLEBTn8
+      - media_player.*****
+      media_content_id: https://*****.duckdns.org:8123/local/Adhan.mp3
       media_content_type: audio/mp3
-    service: media_extractor.play_media
-  - data:
+  - service: media_player.volume_set
+    data:
       entity_id:
-      - media_player.******
+      - media_player.*****
       volume_level: '0.4'
-    service: media_player.volume_set
-    
-- id: '3'
+  - service: media_player.volume_mute
+    data:
+      entity_id:
+      - media_player.tv
+      is_volume_muted: true
+      
+- id: '10'
   alias: IFTTT Webhook
   trigger:
   - event_data:
@@ -66,3 +129,80 @@
   - data_template:
       entity_id: '{{ trigger.event.data.entity_id }}'
     service_template: '{{ trigger.event.data.service }}'
+    
+- id: '11'
+  alias: Imsak Adhan
+  trigger:
+  - platform: template
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_fajr"), "%Y-%m-%dT%H:%M:%S")) - (60 * 16) }}'
+  condition: []
+  action:
+  - service: media_extractor.play_media
+    data:
+      entity_id:
+      - media_player.*****
+      media_content_id: https://*****.duckdns.org:8123/local/FajrAdhan.mp3
+      media_content_type: audio/youtube
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.*****
+      volume_level: '0.4'
+    
+- id: '12'
+  alias: Imsak 30 Minutes
+  trigger:
+  - platform: template
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_fajr"), "%Y-%m-%dT%H:%M:%S")) - (60 * 46) }}'
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.*****
+    data:
+      message: 'This is a reminder that there are 30 minutes remaining for Sehri'
+      language: 'en'
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.*****
+      volume_level: '0.6'
+    
+- id: '13'
+  alias: Imsak 15 Minutes
+  trigger:
+  - platform: template
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_fajr"), "%Y-%m-%dT%H:%M:%S")) - (60 * 31) }}'
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.*****
+    data:
+      message: 'This is a reminder that there are 15 minutes remaining for Sehri'
+      language: 'en'
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.*****
+      volume_level: '0.6'
+    
+- id: '14'
+  alias: Iftar 15 Minutes
+  trigger:
+  - platform: template
+    value_template: '{{ as_timestamp(strptime(states("sensor.time_date"), "%H:%M, %Y-%m-%d"))
+        == as_timestamp(strptime(states("sensor.islamic_prayer_time_maghrib"), "%Y-%m-%dT%H:%M:%S")) - (60 * 13) }}'
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.*****
+    data:
+      message: 'This is a reminder that there are 15 minutes remaining for Iftar'
+      language: 'en'
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.*****
+      volume_level: '0.6'
