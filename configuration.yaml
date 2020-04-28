@@ -3,28 +3,49 @@ default_config:
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
-  base_url: http://********.duckdns.org:8123
+  base_url: https://*****.duckdns.org:8123
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
 
 # Text to speech
 tts:
   - platform: google_translate
-  
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
+    base_url: https://*****.duckdns.org:8123
+    service_name: google_say
+
 discovery:
+  ignore:
+    - yeelight
+    
 media_extractor:
 sun:
 
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+scene: !include scenes.yaml
 
 homeassistant:
-  latitude: 33.083425
-  longitude: -96.82439169999999
-  elevation: 222
-  unit_system: imperial
+  latitude: 00.00
+  longitude: 00.00
+  elevation: 000
+  unit_system: metric
   time_zone: America/Chicago
+  
+zone:
+  - name: *****
+    latitude: 00.00
+    longitude: 00.00
+    radius: 25
+    icon: mdi:home
+  - name: *****
+    latitude: 00.00
+    longitude: 00.00
+    radius: 25
+    icon: mdi:home-circle
 
 sensor:
   - platform: time_date
@@ -46,3 +67,8 @@ sensor:
       - maghrib
       - isha
       - midnight
+      
+yeelight:
+  devices:
+    192.168.0.xxx:
+      name: *****
