@@ -36,16 +36,11 @@ homeassistant:
   time_zone: America/Chicago
   
 zone:
-  - name: *****
+  - name: Home
     latitude: 00.00
     longitude: 00.00
     radius: 25
     icon: mdi:home
-  - name: *****
-    latitude: 00.00
-    longitude: 00.00
-    radius: 25
-    icon: mdi:home-circle
 
 sensor:
   - platform: time_date
